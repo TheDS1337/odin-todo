@@ -21,5 +21,38 @@
         <footer>
             <p>Created by <a href="https://github.com/TheDS1337">DS</a></p>
         </footer>
+
+        <dialog id="add-task-dialog">
+            <form method="dialog"">
+                <label>
+                    Name: 
+                    <input type="text" name="name" required>
+                </label>
+
+                <label>
+                    Description: 
+                    <input type="text" name="description" required>
+                </label>
+
+                <label>
+                    Deadline: 
+                    <input type="date" name="deadline" required>
+                </label>
+
+                <label>
+                    Priority:
+                    <select name="priority">
+                        <option value="1" selected>Low</option>
+                        <option value="2">Medium</option>
+                        <option value="3">High</option>
+                    </select>
+                </label>
+
+                <label>
+                    Notes:
+                    <textarea name="notes"></textarea>
+                </label>
+            </form>
+        </dialog>
     </body>
 </html>

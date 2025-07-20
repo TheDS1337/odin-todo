@@ -54,3 +54,20 @@ Project.getDefault().getTasksList().forEach(task => {
 
     generalTasksContainer.appendChild(taskContainer);
 });
+
+let taskContainer = document.createElement("div");
+taskContainer.classList.add("add-task");
+
+let button = document.createElement("button");
+button.classList.add("add-task-button");
+button.textContent = "Add new task";
+
+taskContainer.appendChild(button);
+generalTasksContainer.appendChild(taskContainer);
+
+
+let addTaskDialog = document.querySelector("#add-task-dialog");
+
+button.addEventListener("click", (event) => {
+    addTaskDialog.showModal();
+});
