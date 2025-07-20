@@ -4,7 +4,9 @@
   "description": "An application that would help you set goals with notes, deadlines and the ability to set high priority on more important things",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "server": "webpack server"
   },
   "repository": {
     "type": "git",
