@@ -1,0 +1,29 @@
+{
+  "name": "odin-todo",
+  "version": "1.0.0",
+  "description": "An application that would help you set goals with notes, deadlines and the ability to set high priority on more important things",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheDS1337/odin-todo.git"
+  },
+  "author": "Mohamed Amine Boussoubel <aboussoubel@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheDS1337/odin-todo/issues"
+  },
+  "homepage": "https://github.com/TheDS1337/odin-todo#readme",
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "date-fns": "^4.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.100.2",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2",
+    "wepack-cli": "^0.0.1-security"
+  }
+}
