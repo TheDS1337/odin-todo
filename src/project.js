@@ -14,13 +14,24 @@ export default class Project
         this.#_tasksCount = 0;
         this.#_tasksDone = 0;
 
-        Project.#_projectsList.push(this);
+//        Project.#_projectsList.push(this);
     }
 
     addTask = (task) => {
         this.#_tasksList.push(task);
         this.#_tasksCount++;
     }
+
+    removeTask = (task) => {
+        let id = this.#_tasksList.indexOf(task);
+
+        if( id !== -1 ) {
+            this.#_tasksList.splice(id, 1);
+            this.#_tasksCount--;
+        }
+    }
+
+    getTasksList = () => this.#_tasksList;
 
     increaseDoneTasks = () => {
         this.#_tasksDone++;
