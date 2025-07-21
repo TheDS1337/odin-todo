@@ -23,46 +23,58 @@ export default class Task
         this.#project = Project.getDefault();
     }
 
-    getName = () => this.#_name;
+    getName() {
+        return this.#_name;
+    }
 
-    setname = (name) => {
+    setname(name) {
         this.#_name = name;
     }
 
-    getDescription = () => this.#_description;
+    getDescription() {
+        return this.#_description;
+    }
 
-    setDescription = (description) => {
+    setDescription(description) {
         this.#_description = description;
     }
 
-    getDeadline = () => this.#_deadline;
+    getDeadline() {
+        return this.#_deadline;
+    }
 
-    setDeadline = (deadline) => {
+    setDeadline(deadline) {
         this.#_deadline = deadline;
     }
 
-    getPriority = () => this.#_priority;
+    getPriority() {
+        return this.#_priority;
+    }
 
-    setPriority = (priority) => {
+    setPriority(priority) {
         this.#_priority = priority;
     }
 
-    getNotes = () => this.#_notes;
+    getNotes() {
+        return this.#_notes;
+    }
 
-    setNotes = (notes) => {
+    setNotes(notes) {
         this.#_notes = notes;
     }
 
-    isDone = () => this.#_isDone;
+    isDone() {
+        return this.#_isDone; 
+    }
 
-    setAsDone = () => {
+    setAsDone() {
         this.#_isDone = true;
         this.#_project.increaseDoneTasks();
 
         Task.#_tasksDone++;
     }
 
-    setAsNotDone = () => {
+    setAsNotDone() {
         this.#_isDone = false;
         this.#_project.decreaseDoneTasks();
 

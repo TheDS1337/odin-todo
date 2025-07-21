@@ -8,19 +8,22 @@
     </head>
 
     <body>
+        <nav>
+            <ul id="nav-list">
+                <li id="list-inbox"><span>Inbox</span></li>
+                <li id="list-starred"><span>Starred</span></li>
+                <li id="list-today"><span>Today</span></li>
+                <li id="list-week"><span>This week</span></li>
+                <li id="list-projects"><span>Projects</span></li>
+            </ul>
+        </nav>
+
         <main>
-            <div id="header">
-                <p>MY TODO LIST</p>
-            </div>
-            
-            <div id="content">
-                <div id="general-tasks-container"></div>
-            </div>
+            <div id="general-tasks-container"></div>
         </main>
 
-        <footer>
-            <p>Created by <a href="https://github.com/TheDS1337">DS</a></p>
-        </footer>
+        <header><p>MY TODO LIST</p></header>
+        <footer><p>Created by <a href="https://github.com/TheDS1337">DS</a></p></footer>
 
         <dialog id="add-task-dialog">
             <form method="dialog"">
@@ -52,6 +55,9 @@
                     Notes:
                     <textarea name="notes"></textarea>
                 </label>
+
+                <button id="form-add-button" type="submit">Add</button>
+                <button id="form-cancel-button" type="button">Cancel</button>
             </form>
         </dialog>
     </body>

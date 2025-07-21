@@ -17,12 +17,12 @@ export default class Project
 //        Project.#_projectsList.push(this);
     }
 
-    addTask = (task) => {
+    addTask(task) {
         this.#_tasksList.push(task);
         this.#_tasksCount++;
     }
 
-    removeTask = (task) => {
+    removeTask(task) {
         let id = this.#_tasksList.indexOf(task);
 
         if( id !== -1 ) {
@@ -31,17 +31,21 @@ export default class Project
         }
     }
 
-    getTasksList = () => this.#_tasksList;
+    getTasksList() {
+        return this.#_tasksList;
+    }
 
-    increaseDoneTasks = () => {
+    increaseDoneTasks() {
         this.#_tasksDone++;
     }
 
-    decreaseDoneTasks = () => {
+    decreaseDoneTasks() {
         this.#_tasksDone--;
     }
 
-    getProgress = () => 100 * this.#_tasksDone / this.#_tasksCount;
+    getProgress() {
+        return 100 * this.#_tasksDone / this.#_tasksCount; 
+    }
 
     static getDefault = () => Project.#_defaultProject;
     static getProjectsList = () => Project.#_projectsList;
