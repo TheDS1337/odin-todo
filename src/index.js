@@ -1,7 +1,6 @@
 import "./styles.css"
 
 import Page from "./page.js"
-import Project from "./project.js"
 import Task from "./task.js"
 
 function storageAvailable(type)
@@ -29,6 +28,9 @@ if( storageAvailable("localStorage") )
 else 
     console.log("Windows.localStorage is not available!");
 
+
+
+
 Page.setContainer(document.querySelector("#general-tasks-container"));
 
 const navList = document.querySelector("#nav-list");
@@ -36,18 +38,16 @@ const navList = document.querySelector("#nav-list");
 for(const li of navList.children ) {
     let pageName = li.id.split('-').pop();
 
-    let page = (await import(`./page_${pageName}.js`)).default;
+    let TodoList = (await import(`./todolist_${pageName}.js`)).default;
     
     li.addEventListener("click", (event) => {
         let elm = event.target;
-        console.log(elm.tagName);
 
         while( elm.tagName !== "LI" )
             elm = elm.parentElement;
 
-        console.log(elm.tagName);
         Page.setActivatingButton(elm);
-        page.load();
+        Page.load(new TodoList(pageName));
     });
 }
 

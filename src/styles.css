@@ -74,10 +74,32 @@ main {
 #general-tasks-container > div {
     padding: 5px 10px;
     font-size: 1.5em;
+    display: grid;
+    grid-template-columns: 12fr repeat(2, 6fr) repeat(3, 1fr);
+    gap: 5px;
+}
+
+#general-tasks-container > div:first-child {
+    background-color: rgb(var(--color-accent), 0.75);
+    border-radius: 15px;
+}
+
+#general-tasks-container > div:not(#general-tasks-container > div:first-child) {
     border: 2px solid rgb(var(--color-accent));
     border-radius: 15px;
-    display: grid;
-    grid-template-columns: 7;
+    cursor: pointer;
+}
+
+#general-tasks-container > div:not(#general-tasks-container > div:first-child):hover {
+    background-color: rgb(var(--color-background), 0.25);
+}
+
+.task-is-done {
+    background-color: rgb(var(--color-secondary));
+}
+
+.task-is-not-done {
+    background-color: rgb(var(--color-secondary), 0.5);
 }
 
 footer {

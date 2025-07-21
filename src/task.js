@@ -2,6 +2,7 @@ import Project from "./project.js"
 
 export default class Task 
 {
+    static #_tasksList = [];
     static #_tasksCount = 0;
     static #_tasksDone = 0;
 
@@ -20,6 +21,8 @@ export default class Task
         this.#_priority = priority;
         this.#_notes = notes;
         this.#_isDone = false;
+        Task.#_tasksList.push(this);
+
         this.#project = Project.getDefault();
     }
 
@@ -93,5 +96,6 @@ export default class Task
         this.#_project.addTask(this);
     }
 
+    static getTasksList = () => Task.#_tasksList;
     static getProgress = () => 100 * Task.#_tasksDone / Task.#_tasksCount;
 }
