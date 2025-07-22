@@ -4,9 +4,9 @@ import Task from "./task.js"
 export default (function() {
     let _container = null;
     let _activatingButton = null;
-    let _lastRememberedTodoList = null
+    let _viewingTodoList = null;
 
-    const load = (todoList) =>
+    const load = () =>
     {
         let firstChild;
         
@@ -22,22 +22,22 @@ export default (function() {
         let priorityElem = document.createElement("div");
         priorityElem.textContent = "Priority";
 
-        let starButtonElm = document.createElement("div");
-        let editButtonElm = document.createElement("div");
-        let removeButtonElm = document.createElement("div");
+        let taskInfoElm = document.createElement("div");
+        taskInfoElm.classList.add("task-info");
+        taskInfoElm.appendChild(nameElm);
+        taskInfoElm.appendChild(deadlineElem);
+        taskInfoElm.appendChild(priorityElem);
 
-        let divContainerElement = document.createElement("div");
+        let taskButtonsElm = document.createElement("div");
 
-        divContainerElement.appendChild(nameElm);
-        divContainerElement.appendChild(deadlineElem);
-        divContainerElement.appendChild(priorityElem);
-        divContainerElement.appendChild(starButtonElm);
-        divContainerElement.appendChild(editButtonElm);
-        divContainerElement.appendChild(removeButtonElm);
+        let divContainerElm = document.createElement("div");
+        divContainerElm.id = "task-header";
+        divContainerElm.appendChild(taskInfoElm);
+        divContainerElm.appendChild(taskButtonsElm);
 
-        _container.appendChild(divContainerElement);
+        _container.appendChild(divContainerElm);
         
-        todoList.getTasksList().forEach(task => {
+        _viewingTodoList.getTasksList().forEach(task => {
             let taskId = `task-${Task.getTasksList().indexOf(task)}`;
 
             nameElm = document.createElement("div");
@@ -52,35 +52,74 @@ export default (function() {
             priorityElem = document.createElement("div");
             priorityElem.textContent = task.getPriority();
             
-            starButtonElm = document.createElement("button");
-            starButtonElm.id = taskId;
-            starButtonElm.addEventListener("click", onClickStar);
+            let starButtonElm = document.createElement("div");
+            let editButtonElm = document.createElement("div");
+            let removeButtonElm = document.createElement("div");
 
-            editButtonElm = document.createElement("button");
-            starButtonElm.id = taskId;
-            starButtonElm.addEventListener("click", onClickEdit);
+            let start = document.createElement("button");
+            start.id = taskId;
+            start.addEventListener("click", onClickStar);
 
-            removeButtonElm = document.createElement("button");
-            removeButtonElm.id = taskId;
-            removeButtonElm.addEventListener("click", onClickRemove);
+            starButtonElm.appendChild(start);
 
-            divContainerElement = document.createElement("div");
-            divContainerElement.classList.add("task-is-not-done");
-            
-            divContainerElement.appendChild(nameElm);
-            divContainerElement.appendChild(deadlineElem);
-            divContainerElement.appendChild(priorityElem);
-            divContainerElement.appendChild(starButtonElm);
-            divContainerElement.appendChild(editButtonElm);
-            divContainerElement.appendChild(removeButtonElm);
+            let edit = document.createElement("button");
+            edit.id = taskId;
+            edit.addEventListener("click", onClickEdit);
 
-            _container.appendChild(divContainerElement);
+            editButtonElm.appendChild(edit);
+
+            let remove = document.createElement("button");
+            remove.id = taskId;
+            remove.addEventListener("click", onClickRemove);
+
+            removeButtonElm.appendChild(remove);
+
+            taskInfoElm = document.createElement("div");
+            taskInfoElm.classList.add("task-info");
+            taskInfoElm.classList.add(task.isDone() ? "task-is-done" : "task-is-not-done");
+            taskInfoElm.appendChild(nameElm);
+            taskInfoElm.appendChild(deadlineElem);
+            taskInfoElm.appendChild(priorityElem);
+
+            taskButtonsElm = document.createElement("div");
+            taskButtonsElm.classList.add("task-buttons");
+            taskButtonsElm.appendChild(starButtonElm);
+            taskButtonsElm.appendChild(editButtonElm);
+            taskButtonsElm.appendChild(removeButtonElm);
+
+            divContainerElm = document.createElement("div");
+            divContainerElm.classList.add("task");
+            divContainerElm.appendChild(taskInfoElm);
+            divContainerElm.appendChild(taskButtonsElm);
+
+            _container.appendChild(divContainerElm);
         });
 
-        _lastRememberedTodoList = todoList;
+        let addTaskDialog = document.querySelector("#add-task-dialog");
+
+        divContainerElm = document.createElement("div");
+        divContainerElm.id = "add-task";
+        divContainerElm.textContent = "Add task";
+
+        divContainerElm.addEventListener("click", () => {
+            addTaskDialog.showModal();
+        });
+
+        _container.appendChild(divContainerElm);
     };
 
     const onClickStar = event => {
+        let task = Task.getTasksList()
+            .at(parseInt(event.target.id.split('-').pop()));
+
+        task.toggleStarred();
+
+        if( task.isStarred() )
+            TodoList.getStarredTodoList().addTask(task);
+        else
+            TodoList.getStarredTodoList().removeTask(task);
+
+        load();
     }
 
     const onClickEdit = event => {
@@ -90,34 +129,43 @@ export default (function() {
         let taskId = parseInt(event.target.id.split('-').pop());
         let tasksList = Task.getTasksList();
 
-        _lastRememberedTodoList.removeTask(tasksList[taskId]);
+        _viewingTodoList.removeTask(tasksList.at(taskId));
         tasksList.splice(taskId, 1);
 
-        load(_lastRememberedTodoList);
+        load();
     }
 
     const onTaskClick = event => {
         let nameElem = event.target;
+        let task = Task.getTasksList().at(parseInt(nameElem.id.split('-').pop()));
 
-        let taskId = parseInt(nameElem.id.split('-').pop());
-        let task = Task.getTasksList().at(taskId);
+        let parentElement = nameElem.parentElement;
+        let grandParentElement = parentElement.parentElement;
 
         if( task.isDone() ) {
             task.setAsNotDone();
 
-            nameElem.parentElement.classList.remove("task-is-done");
-            nameElem.parentElement.classList.add("task-is-not-done");
+            parentElement.classList.remove("task-is-done");
+            grandParentElement.classList.remove("task-is-done-parent");
+
+            parentElement.classList.add("task-is-not-done");
+            grandParentElement.classList.add("task-is-not-done-parent");
         } else {
             task.setAsDone();
 
-            nameElem.parentElement.classList.add("task-is-done");
-            nameElem.parentElement.classList.remove("task-is-not-done");
+            parentElement.classList.remove("task-is-not-done");
+            grandParentElement.classList.remove("task-is-not-done-parent");
+
+            parentElement.classList.add("task-is-done");
+            grandParentElement.classList.add("task-is-done-parent");
         }
     }
 
     const setContainer = container => {
         _container = container;
     }
+
+    const getActivatingButton = () => _activatingButton;
 
     const setActivatingButton = button => {
         if( _activatingButton )
@@ -127,5 +175,11 @@ export default (function() {
         _activatingButton.classList.add("nav-list-active");
     }
 
-    return { load, setContainer, setActivatingButton }
+    const getViewingTodoList = () => _viewingTodoList;
+
+    const setViewingTodoList = todoList => {
+        _viewingTodoList = todoList;
+    }
+
+    return { load, setContainer, getActivatingButton, setActivatingButton, getViewingTodoList, setViewingTodoList }
 })();

@@ -71,34 +71,84 @@ main {
     gap: 5px;
 }
 
-#general-tasks-container > div {
+#task-header {
     padding: 5px 10px;
     font-size: 1.5em;
+    text-align: center;
+    background-color: rgb(var(--color-accent), 0.75);
+    border-radius: 15px;
     display: grid;
-    grid-template-columns: 12fr repeat(2, 6fr) repeat(3, 1fr);
+    grid-template-columns: 8fr 1fr;
     gap: 5px;
 }
 
-#general-tasks-container > div:first-child {
-    background-color: rgb(var(--color-accent), 0.75);
+.task {
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-align: center;
+    border: 2px solid rgb(var(--color-accent));
     border-radius: 15px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 8fr 1fr;
+    gap: 5px;
 }
 
-#general-tasks-container > div:not(#general-tasks-container > div:first-child) {
+.task:hover {
+    background-color: rgb(var(--color-background), 0.25);
+}
+
+#add-task {
+    padding: 5px 10px;
+    font-size: 1.5em;
+    text-align: center;
     border: 2px solid rgb(var(--color-accent));
     border-radius: 15px;
     cursor: pointer;
 }
 
-#general-tasks-container > div:not(#general-tasks-container > div:first-child):hover {
-    background-color: rgb(var(--color-background), 0.25);
+.task-info
+{
+    display: grid;
+    grid-template-columns: 2fr repeat(2, 1fr);
+}
+
+.task-buttons
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.task-buttons > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .task-is-done {
+    position: relative;
+}
+
+.task-is-done::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 85%;
+    height: 5px;
+    background-color: currentColor;
+    pointer-events: none;
+}
+
+.task-is-done-parent {
     background-color: rgb(var(--color-secondary));
+    opacity: 0.5;
 }
 
 .task-is-not-done {
+}
+
+.task-is-not-done-parent {
     background-color: rgb(var(--color-secondary), 0.5);
 }
 
@@ -112,4 +162,14 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#add-task-dialog {
+    color: rgb(var(--color-text));
+    background-color: rgb(var(--color-background));
+}
+
+#add-task-dialog > form {
+    display: flex;
+    flex-direction: column;
 }

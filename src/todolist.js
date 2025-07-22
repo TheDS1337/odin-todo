@@ -1,6 +1,9 @@
+import Task from "./task.js"
+
 export default class TodoList
 {
-    static #_defaultTodoList = null;
+    static #_inboxTodoList = null;
+    static #_starredTodoList = null;
     static #_todoLists = [];
 
     #_name
@@ -14,12 +17,27 @@ export default class TodoList
         this.#_tasksCount = 0;
         this.#_tasksDone = 0;
 
-//        TodoList.#_todoLists.push(this);
+        Task.getTasksList().forEach(task => {
+            if( this.criterion(task) )
+                this.addTask(task);
+        });
+
+        TodoList.#_todoLists.push(this);
+    }
+
+    criterion(task) {
+        return true;
     }
 
     addTask(task) {
+        if( this.#_tasksList.indexOf(task) !== -1 )
+            return;
+
         this.#_tasksList.push(task);
         this.#_tasksCount++;
+
+        if( TodoList.#_inboxTodoList && this !== TodoList.#_inboxTodoList )
+            TodoList.#_inboxTodoList.addTask(task);
     }
 
     removeTask(task) {
@@ -29,6 +47,10 @@ export default class TodoList
             this.#_tasksList.splice(id, 1);
             this.#_tasksCount--;
         }
+    }
+
+    getName() {
+        return this.#_name;
     }
 
     getTasksList() {
@@ -47,10 +69,17 @@ export default class TodoList
         return 100 * this.#_tasksDone / this.#_tasksCount; 
     }
 
-    static getDefault = () => TodoList.#_defaultTodoList;
-    static setDefault = (defList) => {
-        TodoList.#_defaultTodoList = defList;
+    static getInboxTodoList = () => TodoList.#_inboxTodoList;
+    
+    static setInboxTodoList = defList => {
+        TodoList.#_inboxTodoList = defList;
     }
 
-    static getProjectsList = () => TodoList.#_todoLists;
+    static getStarredTodoList = () => TodoList.#_starredTodoList;
+    
+    static setStarredTodoList = starredList => {
+        TodoList.#_starredTodoList = starredList;
+    }
+
+    static getTodoLists = () => TodoList.#_todoLists;
 }

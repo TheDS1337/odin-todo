@@ -11,6 +11,7 @@ export default class Task
     #_deadline;
     #_priority;
     #_notes;
+    #_isStarred;
     #_isDone;
     #_project;
 
@@ -20,6 +21,7 @@ export default class Task
         this.#_deadline = deadline;
         this.#_priority = priority;
         this.#_notes = notes;
+        this.#_isStarred = false;
         this.#_isDone = false;
         Task.#_tasksList.push(this);
 
@@ -66,6 +68,14 @@ export default class Task
         this.#_notes = notes;
     }
 
+    isStarred() {
+        return this.#_isStarred; 
+    }
+
+    toggleStarred() {
+        this.#_isStarred = !this.#_isStarred;
+    }
+
     isDone() {
         return this.#_isDone; 
     }
@@ -97,5 +107,6 @@ export default class Task
     }
 
     static getTasksList = () => Task.#_tasksList;
+    
     static getProgress = () => 100 * Task.#_tasksDone / Task.#_tasksCount;
 }
