@@ -1,5 +1,5 @@
 import Page from "./page.js";
-import TodoList from "./todolist.js"
+import TodoList from "./todolist.js";
 import Task from "./task.js";
 
 export default (function() {

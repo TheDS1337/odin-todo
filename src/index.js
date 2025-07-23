@@ -1,13 +1,12 @@
-import "./styles.css"
+import "./styles.css";
 
 // load tasks first
-import Page from "./page.js"
-import Dialog from "./dialog.js"
+import Page from "./page.js";
 import TodoList from "./todolist.js";
-import Task from "./task.js"
+import Task from "./task.js";
 
-new Task("Hit gym", "do 45 mins of bodybuilding followed up by 30 mins of cardio", new Date(), 3, "");
-new Task("Math homeworks", "Do exercises 1, 4 and 6 page 145", new Date(), 2, "");
+new Task("Hit gym", "do 45 mins of bodybuilding followed up by 30 mins of cardio", new Date(Date.now() + 10000), 3, "");
+new Task("Math homeworks", "Do exercises 1, 4 and 6 page 145", new Date(Date.now() + 15000), 2, "");
 new Task("Read one chapter", "Little bit of reading before sleep, if its not possible then there's no need", new Date(), 1, "");
 
 Page.setContainer(document.querySelector("#general-tasks-container"));

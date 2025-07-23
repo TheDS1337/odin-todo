@@ -1,4 +1,5 @@
-import Task from "./task.js"
+import Task from "./task.js";
+import { lightFormat } from "date-fns";
 
 export default class TodoList
 {
@@ -30,7 +31,7 @@ export default class TodoList
     }
 
     formatDate(date) {
-        return date.toDateString();
+        return lightFormat(date, 'yyyy-MM-dd');
     }
 
     addTask(task) {

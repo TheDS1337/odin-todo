@@ -1,5 +1,4 @@
-import TodoList from "./todolist.js"
-import Task from "./task.js"
+import TodoList from "./todolist.js";
 
 export default class extends TodoList {
 };

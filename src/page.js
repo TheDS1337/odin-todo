@@ -1,6 +1,7 @@
 import TodoList from "./todolist.js";
-import Task from "./task.js"
-import Dialog from "./dialog.js"
+import Task from "./task.js";
+import Dialog from "./dialog.js";
+import { isPast } from "date-fns";
 
 export default (function() {
     let _container = null;
@@ -49,6 +50,10 @@ export default (function() {
 
             deadlineElem = document.createElement("div");
             deadlineElem.textContent = _viewingTodoList.formatDate(task.getDeadline());
+
+            if( isPast(task.getDeadline()) ) {
+                // make it grey?
+            }
 
             priorityElem = document.createElement("div");
             

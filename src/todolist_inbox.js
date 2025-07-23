@@ -1,4 +1,4 @@
-import TodoList from "./todolist.js"
+import TodoList from "./todolist.js";
 
 export default class extends TodoList {
     constructor(name) {
