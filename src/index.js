@@ -1,12 +1,14 @@
 import "./styles.css"
 
+// load tasks first
 import Page from "./page.js"
+import Dialog from "./dialog.js"
 import TodoList from "./todolist.js";
 import Task from "./task.js"
 
-new Task("Hit gym", "do 45 mins of bodybuilding followed up by 30 mins of cardio", "Today", "High", "");
-new Task("Math homeworks", "Do exercises 1, 4 and 6 page 145", "Today", "Medium", "");
-new Task("Read one chapter", "Little bit of reading before sleep, if its not possible then there's no need", "Today", "Low", "");
+new Task("Hit gym", "do 45 mins of bodybuilding followed up by 30 mins of cardio", new Date(), 3, "");
+new Task("Math homeworks", "Do exercises 1, 4 and 6 page 145", new Date(), 2, "");
+new Task("Read one chapter", "Little bit of reading before sleep, if its not possible then there's no need", new Date(), 1, "");
 
 Page.setContainer(document.querySelector("#general-tasks-container"));
 
@@ -25,42 +27,8 @@ for(const li of navList.children ) {
             elm = elm.parentElement;
 
         Page.setActivatingButton(elm);
-        Page.setViewingTodoList(TodoList.getTodoLists().find(todoList => todoList.getName() === elm.id.split('-').pop()));
+        Page.setViewingTodoList(TodoList.findByName(elm.id.split('-').pop()));
 
         Page.load();
     });
 }
-
-let formCancelButtonElm = document.querySelector("#form-cancel-button");
-formCancelButtonElm.addEventListener("click", event => {
-    event.target.parentElement.parentElement.close();
-});
-
-let formElm = document.querySelector("#add-task-dialog > form");
-
-formElm.addEventListener('submit', event => {
-    event.preventDefault();
-
-    let elm = event.target;
-    let data = new FormData(elm);
-    let task = new Task(data.get("name"),
-        data.get("description"),
-        new Date(data.get("deadline")),
-        data.get("priority"),
-        data.get("notes")
-    );
-
-    let viewingTodoList = Page.getViewingTodoList();
-
-    // If we are viewing the starred page, then instantly flag the task as starred so that it loads
-    if( viewingTodoList === TodoList.getStarredTodoList() )
-        task.toggleStarred();
-
-    if( viewingTodoList.criterion(task) )
-        viewingTodoList.addTask(task);
-
-    Page.load();
-
-    elm.reset();
-    elm.parentElement.close();
-});

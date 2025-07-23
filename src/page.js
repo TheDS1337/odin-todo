@@ -1,5 +1,6 @@
 import TodoList from "./todolist.js";
 import Task from "./task.js"
+import Dialog from "./dialog.js"
 
 export default (function() {
     let _container = null;
@@ -47,10 +48,23 @@ export default (function() {
             nameElm.addEventListener("click", onTaskClick);
 
             deadlineElem = document.createElement("div");
-            deadlineElem.textContent = task.getDeadline();
+            deadlineElem.textContent = _viewingTodoList.formatDate(task.getDeadline());
 
             priorityElem = document.createElement("div");
-            priorityElem.textContent = task.getPriority();
+            
+            switch( task.getPriority() ) {
+                case 1:
+                    priorityElem.textContent = "Low";
+                    break;
+
+                case 2:
+                    priorityElem.textContent = "Medium";
+                    break;
+
+                case 3:
+                    priorityElem.textContent = "High";
+                    break;
+            }
             
             let starButtonElm = document.createElement("div");
             let editButtonElm = document.createElement("div");
@@ -63,8 +77,10 @@ export default (function() {
             starButtonElm.appendChild(start);
 
             let edit = document.createElement("button");
-            edit.id = taskId;
-            edit.addEventListener("click", onClickEdit);
+            edit.id = `edit-${taskId}`;
+            edit.addEventListener("click", event => {
+                Dialog.show(event.target, true);
+            });
 
             editButtonElm.appendChild(edit);
 
@@ -95,14 +111,13 @@ export default (function() {
             _container.appendChild(divContainerElm);
         });
 
-        let addTaskDialog = document.querySelector("#add-task-dialog");
 
         divContainerElm = document.createElement("div");
         divContainerElm.id = "add-task";
         divContainerElm.textContent = "Add task";
 
         divContainerElm.addEventListener("click", () => {
-            addTaskDialog.showModal();
+            Dialog.show(divContainerElm);
         });
 
         _container.appendChild(divContainerElm);
@@ -122,15 +137,11 @@ export default (function() {
         load();
     }
 
-    const onClickEdit = event => {
-    }
-
     const onClickRemove = event => {
-        let taskId = parseInt(event.target.id.split('-').pop());
-        let tasksList = Task.getTasksList();
+        let task = Task.getTasksList()
+            .at(parseInt(event.target.id.split('-').pop()));
 
-        _viewingTodoList.removeTask(tasksList.at(taskId));
-        tasksList.splice(taskId, 1);
+        _viewingTodoList.removeTask(task, true);
 
         load();
     }

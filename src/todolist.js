@@ -29,6 +29,10 @@ export default class TodoList
         return true;
     }
 
+    formatDate(date) {
+        return date.toDateString();
+    }
+
     addTask(task) {
         if( this.#_tasksList.indexOf(task) !== -1 )
             return;
@@ -40,12 +44,21 @@ export default class TodoList
             TodoList.#_inboxTodoList.addTask(task);
     }
 
-    removeTask(task) {
+    removeTask(task, hard = false) {
         let id = this.#_tasksList.indexOf(task);
 
         if( id !== -1 ) {
             this.#_tasksList.splice(id, 1);
             this.#_tasksCount--;
+        }
+
+        if( hard ) {
+            TodoList.#_todoLists.forEach(list => {
+                if( list === this )
+                    return;
+                
+                list.removeTask(task);
+            });
         }
     }
 
@@ -68,8 +81,6 @@ export default class TodoList
     getProgress() {
         return 100 * this.#_tasksDone / this.#_tasksCount; 
     }
-
-    static getInboxTodoList = () => TodoList.#_inboxTodoList;
     
     static setInboxTodoList = defList => {
         TodoList.#_inboxTodoList = defList;
@@ -82,4 +93,5 @@ export default class TodoList
     }
 
     static getTodoLists = () => TodoList.#_todoLists;
+    static findByName = (name) => TodoList.#_todoLists.find(list => list.getName() === name);
 }

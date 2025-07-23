@@ -16,16 +16,21 @@ export default class Task
     #_project;
 
     constructor(name, description, deadline, priority, notes) {
+        this.copy(name, description, deadline, priority, notes);
+
+        this.#_isStarred = false;
+        this.#_isDone = false;
+        this.#project = Project.getDefault();
+
+        Task.#_tasksList.push(this);
+    }
+
+    copy(name, description, deadline, priority, notes) {
         this.#_name = name;
         this.#_description = description;
         this.#_deadline = deadline;
         this.#_priority = priority;
         this.#_notes = notes;
-        this.#_isStarred = false;
-        this.#_isDone = false;
-        Task.#_tasksList.push(this);
-
-        this.#project = Project.getDefault();
     }
 
     getName() {

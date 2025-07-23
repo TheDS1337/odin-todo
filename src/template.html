@@ -28,37 +28,39 @@
 
         <dialog id="add-task-dialog">
             <form method="dialog"">
-                <label>
-                    Name: 
-                    <input type="text" name="name" required>
-                </label>
+                <div>
+                    <label for="name">Name:</label>
+                    <input id="name" type="text" name="name" required>
+                </div>
 
-                <label>
-                    Description: 
-                    <input type="text" name="description" required>
-                </label>
+                <div>
+                    <label for="description">Description:</label>
+                    <input id="description" type="text" name="description" required>
+                </div>
 
-                <label>
-                    Deadline: 
-                    <input type="datetime-local" name="deadline" required>
-                </label>
+                <div>
+                    <label for="deadline">Deadline:</label>
+                    <input id="deadline" type="datetime-local" name="deadline" required>
+                </div>
 
-                <label>
-                    Priority:
-                    <select name="priority">
+                <div>
+                    <label for="priority">Priority:</label>
+                    <select id="priority" name="priority">
                         <option value="1" selected>Low</option>
                         <option value="2">Medium</option>
                         <option value="3">High</option>
                     </select>
-                </label>
+                </div>
 
-                <label>
-                    Notes:
-                    <textarea name="notes"></textarea>
-                </label>
+                <div>
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" name="notes"></textarea>
+                </div>
 
-                <button id="form-add-button" type="submit">Add</button>
-                <button id="form-cancel-button" type="button">Cancel</button>
+                <div>
+                    <button id="form-add-button" type="submit">OK</button>
+                    <button id="form-cancel-button" type="button">Cancel</button>
+                </div>
             </form>
         </dialog>
     </body>
