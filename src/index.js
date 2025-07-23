@@ -9,8 +9,6 @@ new Task("Hit gym", "do 45 mins of bodybuilding followed up by 30 mins of cardio
 new Task("Math homeworks", "Do exercises 1, 4 and 6 page 145", new Date(Date.now() + 15000), 2, "");
 new Task("Read one chapter", "Little bit of reading before sleep, if its not possible then there's no need", new Date(), 1, "");
 
-Page.setContainer(document.querySelector("#general-tasks-container"));
-
 const navList = document.querySelector("#nav-list");
 
 for(const li of navList.children ) {

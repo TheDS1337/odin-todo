@@ -47,10 +47,17 @@ nav {
     cursor: pointer;
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 #nav-list > li:hover {
     background-color: rgba(var(--color-accent), 0.25);
+}
+
+#nav-list > li > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-list-active {
@@ -88,7 +95,6 @@ main {
     text-align: center;
     border: 2px solid rgb(var(--color-accent));
     border-radius: 15px;
-    cursor: pointer;
     display: grid;
     grid-template-columns: 8fr 1fr;
     gap: 5px;
@@ -111,6 +117,10 @@ main {
 {
     display: grid;
     grid-template-columns: 2fr repeat(2, 1fr);
+}
+
+.task-info > div:first-child {
+    cursor: pointer;
 }
 
 .task-buttons
@@ -206,4 +216,27 @@ footer {
     font-size: 1.25em;
     font-weight: 600;
     padding: 5px 20px;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.task-buttons > div:nth-child(1) .icon:hover, .starred {
+    filter: invert(61%) sepia(79%) saturate(1888%) hue-rotate(10deg) brightness(110%) contrast(104%);
+}
+
+.task-buttons > div:nth-child(2) .icon:hover {
+    filter: invert(30%) sepia(75%) saturate(2179%) hue-rotate(199deg) brightness(101%) contrast(106%);
+}
+
+.task-buttons > div:nth-child(3) .icon:hover {
+    filter: invert(27%) sepia(93%) saturate(1814%) hue-rotate(334deg) brightness(89%) contrast(92%);
+}
+
+.icons2 {
+    width: 20px;
+    height: 20px;
 }

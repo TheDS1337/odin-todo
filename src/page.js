@@ -3,8 +3,12 @@ import Task from "./task.js";
 import Dialog from "./dialog.js";
 import { isPast } from "date-fns";
 
+import starIcon from "./icons/star.png";
+import editIcon from "./icons/edit.png";
+import removeIcon from "./icons/remove.png";
+
 export default (function() {
-    let _container = null;
+    let _container = document.querySelector("#general-tasks-container");
     let _activatingButton = null;
     let _viewingTodoList = null;
 
@@ -75,22 +79,32 @@ export default (function() {
             let editButtonElm = document.createElement("div");
             let removeButtonElm = document.createElement("div");
 
-            let start = document.createElement("button");
-            start.id = taskId;
-            start.addEventListener("click", onClickStar);
+            let star = new Image();
+            star.id = taskId;
+            star.src = starIcon;
+            star.classList.add("icon");
 
-            starButtonElm.appendChild(start);
+            if( task.isStarred() )
+                star.classList.add("starred");;
 
-            let edit = document.createElement("button");
+            star.addEventListener("click", onClickStar);
+
+            starButtonElm.appendChild(star);
+
+            let edit = new Image();
             edit.id = `edit-${taskId}`;
+            edit.src = editIcon;
+            edit.classList.add("icon");
             edit.addEventListener("click", event => {
                 Dialog.show(event.target, true);
             });
 
             editButtonElm.appendChild(edit);
 
-            let remove = document.createElement("button");
+            let remove = new Image();
             remove.id = taskId;
+            remove.src = removeIcon;
+            remove.classList.add("icon");
             remove.addEventListener("click", onClickRemove);
 
             removeButtonElm.appendChild(remove);
@@ -177,10 +191,6 @@ export default (function() {
         }
     }
 
-    const setContainer = container => {
-        _container = container;
-    }
-
     const getActivatingButton = () => _activatingButton;
 
     const setActivatingButton = button => {
@@ -197,5 +207,5 @@ export default (function() {
         _viewingTodoList = todoList;
     }
 
-    return { load, setContainer, getActivatingButton, setActivatingButton, getViewingTodoList, setViewingTodoList }
+    return { load, getActivatingButton, setActivatingButton, getViewingTodoList, setViewingTodoList }
 })();
