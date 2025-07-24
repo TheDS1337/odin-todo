@@ -1,5 +1,3 @@
-import Project from "./project.js";
-
 export default class Task 
 {
     static #_tasksList = [];
@@ -13,14 +11,13 @@ export default class Task
     #_notes;
     #_isStarred;
     #_isDone;
-    #_project;
+    #_todoLists = [];
 
     constructor(name, description, deadline, priority, notes) {
         this.copy(name, description, deadline, priority, notes);
 
         this.#_isStarred = false;
         this.#_isDone = false;
-        this.#project = Project.getDefault();
 
         Task.#_tasksList.push(this);
     }
@@ -87,18 +84,22 @@ export default class Task
 
     setAsDone() {
         this.#_isDone = true;
-        this.#_project.increaseDoneTasks();
+        this.#_todoLists.forEach(list => {
+            list.increaseDoneTasks()
+        });
 
         Task.#_tasksDone++;
     }
 
     setAsNotDone() {
         this.#_isDone = false;
-        this.#_project.decreaseDoneTasks();
+        this.#_todoLists.forEach(list => {
+            list.decreaseDoneTasks();
+        });
 
         Task.#_tasksDone--;
     }
-
+/*
     get #project() {
         return this._project;
     }
@@ -110,7 +111,7 @@ export default class Task
         this.#_project = _project;
         this.#_project.addTask(this);
     }
-
+*/
     static getTasksList = () => Task.#_tasksList;
     
     static getProgress = () => 100 * Task.#_tasksDone / Task.#_tasksCount;

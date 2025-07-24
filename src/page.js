@@ -123,6 +123,7 @@ export default (function() {
             taskButtonsElm.appendChild(removeButtonElm);
 
             divContainerElm = document.createElement("div");
+            divContainerElm.classList.add(task.isDone() ? "task-is-done-parent" : "task-is-not-done-parent");
             divContainerElm.classList.add("task");
             divContainerElm.appendChild(taskInfoElm);
             divContainerElm.appendChild(taskButtonsElm);

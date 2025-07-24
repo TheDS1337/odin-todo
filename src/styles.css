@@ -40,21 +40,23 @@ nav {
     list-style-type: none;
 }
 
-#nav-list > li {
+#nav-list > li > div:first-child:hover {
+    background-color: rgba(var(--color-accent), 0.25);
+}
+
+#nav-list > li > div:first-child {
     padding: 7.5px 0px 7.5px 40px;
     margin-right: 50px;
     border-radius: 0px 15px 15px 0px;
     cursor: pointer;
+    caret-color: transparent;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-#nav-list > li:hover {
-    background-color: rgba(var(--color-accent), 0.25);
-}
 
-#nav-list > li > div {
+#nav-list > li > div:first-child > div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -239,4 +241,23 @@ footer {
 .icons2 {
     width: 20px;
     height: 20px;
+}
+
+#list-projects > div:last-child {
+    padding: 7.5px 0px 7.5px 65px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#add-project-container {
+    display: flex;
+    align-items: center;
+}
+
+#add-project {
+    padding: 5px 10px;
+    font-size: 0.75em;
+    text-align: center;
+    cursor: pointer;
 }
