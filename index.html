@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Todo list</title>
+    <script defer src="main.js"></script></head>
+
+    <body>
+        <nav>
+            <ul id="nav-list">
+                <li id="list-inbox"><div><div><img src="a01df083c4c6e7a36c95.png" class="icons2"></div><div>Inbox</div></div></li>
+                <li id="list-starred"><div><div><img src="59c655ce2fcb97364fe1.png" class="icons2"></div><div>Starred</div></div></li>
+                <li id="list-today"><div><div><img src="37fd461cd5c10e08e22e.png" class="icons2"></div><div>Today</div></div></li>
+                <li id="list-week"><div><div><img src="349666ea3db568f3e681.png" class="icons2"></div><div>This week</div></div></li>
+                <li id="list-projects"><div><div><img src="656ee90e10240c564c89.png" class="icons2"></div><div>Projects</div></div><div></div></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div id="general-tasks-container">
+            </div>
+        </main>
+
+        <header><p>MY TODO LIST</p></header>
+        <footer><p>Created by <a href="https://github.com/TheDS1337">DS</a>, icons by <a href="https://www.freepik.com">Freepik</a>.</p></footer>
+
+        <dialog id="add-task-dialog">
+            <form method="dialog"">
+                <div>
+                    <label for="name">Name:</label>
+                    <input id="name" type="text" name="name" required>
+                </div>
+
+                <div>
+                    <label for="description">Description:</label>
+                    <input id="description" type="text" name="description" required>
+                </div>
+
+                <div>
+                    <label for="deadline">Deadline:</label>
+                    <input id="deadline" type="datetime-local" name="deadline" required>
+                </div>
+
+                <div>
+                    <label for="priority">Priority:</label>
+                    <select id="priority" name="priority">
+                        <option value="1" selected>Low</option>
+                        <option value="2">Medium</option>
+                        <option value="3">High</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" name="notes"></textarea>
+                </div>
+
+                <div>
+                    <button id="form-add-button" type="submit">OK</button>
+                    <button id="form-cancel-button" type="button">Cancel</button>
+                </div>
+            </form>
+        </dialog>
+    </body>
+</html>
