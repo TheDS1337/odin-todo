@@ -49,12 +49,15 @@ nav {
     margin-right: 50px;
     border-radius: 0px 15px 15px 0px;
     cursor: pointer;
-    caret-color: transparent;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+#nav-list > li > div
+{
+    caret-color: transparent;
+}
 
 #nav-list > li > div:first-child > div {
     display: flex;
@@ -243,11 +246,22 @@ footer {
     height: 20px;
 }
 
-#list-projects > div:last-child {
-    padding: 7.5px 0px 7.5px 65px;
+#list-projects > div:nth-child(2) {
+    padding: 7.5px 0px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    cursor: pointer;
+}
+
+#list-projects > div:nth-child(2) > div:not(#list-projects > div:nth-child(2) > div:last-child):hover {
+    background-color: rgba(var(--color-accent), 0.25);
+}
+
+#list-projects > div:nth-child(2) > div {
+    padding: 7.5px 0px 7.5px 85px;
+    margin-right: 50px;
+    border-radius: 0px 15px 15px 0px;
 }
 
 #add-project-container {

@@ -1,3 +1,5 @@
+import TodoList from "./todolist";
+
 export default class Task 
 {
     static #_tasksList = [];
@@ -11,7 +13,7 @@ export default class Task
     #_notes;
     #_isStarred;
     #_isDone;
-    #_todoLists = [];
+    #_project;
 
     constructor(name, description, deadline, priority, notes) {
         this.copy(name, description, deadline, priority, notes);
@@ -28,6 +30,7 @@ export default class Task
         this.#_deadline = deadline;
         this.#_priority = priority;
         this.#_notes = notes;
+        this.#_project = null;
     }
 
     getName() {
@@ -84,7 +87,7 @@ export default class Task
 
     setAsDone() {
         this.#_isDone = true;
-        this.#_todoLists.forEach(list => {
+        TodoList.getTodoLists().forEach(list => {
             list.increaseDoneTasks()
         });
 
@@ -93,26 +96,21 @@ export default class Task
 
     setAsNotDone() {
         this.#_isDone = false;
-        this.#_todoLists.forEach(list => {
+        TodoList.getTodoLists().forEach(list => {
             list.decreaseDoneTasks();
         });
 
         Task.#_tasksDone--;
     }
-/*
-    get #project() {
-        return this._project;
+
+    getProject() {
+        return this.#_project;
     }
 
-    set #project(_project) {
-        if( this.#_project )
-            this.#_project.removeTask(this);
-        
-        this.#_project = _project;
-        this.#_project.addTask(this);
+    setProject(project) {
+        this.#_project = project;
     }
-*/
-    static getTasksList = () => Task.#_tasksList;
-    
+
+    static getTasksList = () => Task.#_tasksList;    
     static getProgress = () => 100 * Task.#_tasksDone / Task.#_tasksCount;
 }

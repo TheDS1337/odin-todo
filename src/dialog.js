@@ -1,5 +1,6 @@
 import Page from "./page.js";
 import TodoList from "./todolist.js";
+import Project from "./todolist_project.js";
 import Task from "./task.js";
 
 export default (function() {
@@ -47,8 +48,10 @@ export default (function() {
             case "add": {
                 let task = new Task(...taskInfo);
 
+                if( viewingTodoList.isProject() )
+                    task.setProject(viewingTodoList);
                 // If we are viewing the starred page, then instantly flag the task as starred so that it loads
-                if( viewingTodoList === TodoList.getStarredTodoList() )
+                else if( viewingTodoList === TodoList.getStarredTodoList() )
                     task.toggleStarred();
 
                 if( viewingTodoList.criterion(task) )

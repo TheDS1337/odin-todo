@@ -30,6 +30,10 @@ export default class TodoList
         return true;
     }
 
+    isProject(task) {
+        return false;
+    }
+
     formatDate(date) {
         return lightFormat(date, 'yyyy-MM-dd');
     }
